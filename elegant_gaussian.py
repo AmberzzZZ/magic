@@ -9,6 +9,7 @@ def elegant_gaussian(kernel_size=(3,5,5), sigma=(1,1,1), dims=3):
     kernel_size = kernel_size[:dims]
     sigma = sigma[:dims]
     distance_arr = np.zeros(kernel_size+(dims,), dtype=np.float32)
+    factor = 1.
     for i in range(dims):
         vector_shape = [1 for i in range(dims)]
         vector_shape[i] = kernel_size[i]
@@ -17,10 +18,9 @@ def elegant_gaussian(kernel_size=(3,5,5), sigma=(1,1,1), dims=3):
         copy_shape[i] = 1
         tmp = np.tile(vector, copy_shape)
         distance_arr[...,i] = tmp
+        factor *= math.pow(math.pi, 1/2.) * sigma[i]
     filter = np.sum((distance_arr*distance_arr)/(2*np.array(sigma)*np.array(sigma)), axis=-1, dtype=np.float32)
-    filter = np.exp(-filter)
-    for i in range(dims):
-        filter /= math.pow(math.pi, 1/2.) * sigma[i]
+    filter = np.exp(-filter) / factor
     filter = (filter - np.min(filter)) / (np.max(filter) - np.min(filter))
     return filter
 
