@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import tensorflow as tf
+import SimpleITK as sitk
 
 
 def resize_trilinear(arr, factors=(1,1,1), output_size=None):
@@ -31,8 +31,11 @@ def resize2d(arr, h, w):
 
 if __name__ == '__main__':
 
-    x = np.ones((5,3,2))
+    x = sitk.ReadImage("gaussian_tube.nii.gz")
+    x = sitk.GetArrayFromImage(x)
     y = resize_trilinear(x, factors=(2,2,2), output_size=None)
-    print(y.shape)
+
+    sitk.WriteImage(sitk.GetImageFromArray(y), 'y.nii.gz')
+
 
 
