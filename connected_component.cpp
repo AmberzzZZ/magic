@@ -8,7 +8,7 @@ using namespace std;
 
 // 八连通
 // 执行完，该连通区域对应的src全部为0，对应的dst为v；
-void pot_erg(int* src, std::vector<int> &ps, int i, int j, int k, int width, int height, int depth)
+void search_neighbor(int* src, std::vector<int> &ps, int i, int j, int k, int width, int height, int depth)
 {
     int index = k + j*width + i*height*width;
     if (src[index] != 0)
@@ -21,7 +21,7 @@ void pot_erg(int* src, std::vector<int> &ps, int i, int j, int k, int width, int
                     if (ii >= 0 && ii < depth &&
                         jj >= 0 && jj < height &&
                         kk >= 0 && kk < width)
-                        pot_erg(src, ps, ii, jj, kk, width, height, depth);
+                        search_neighbor(src, ps, ii, jj, kk, width, height, depth);
     }
 }
 
@@ -39,7 +39,7 @@ void connectedComponents3D(int* src, int* dst, int width, int height, int depth,
                 if (src[index] != 0)
                 {
                     ps.clear();
-                    pot_erg(src, ps, i, j, k, width, height, depth);
+                    search_neighbor(src, ps, i, j, k, width, height, depth);
                     // std::cout << "v: " << v << " ps.size(): " << ps.size() << std::endl;
                     if (ps.size() > min_th)
                     {
@@ -48,8 +48,8 @@ void connectedComponents3D(int* src, int* dst, int width, int height, int depth,
                             // std::cout << "it: " << it << std::endl;
                             dst[it] = v;
                         }
+                        v++;    
                     }
-                    v++;    
                 }
             }
     return;
