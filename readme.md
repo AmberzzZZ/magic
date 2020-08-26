@@ -12,3 +12,5 @@
 5. wc.py: wordcloud
 
 6. hausdoff.py: Hausdoff distance计算，3D的配准时间复杂度较大，取距离质心最远的N个点做近似
+
+7. connect_componet.cpp: 3d连通域
