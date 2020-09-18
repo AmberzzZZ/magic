@@ -19,3 +19,6 @@
 7.1. connect_componet.py: 
     递归版3d连通域，python版同样有递归深度限制问题，但是可以通过sys调整，
     region growing版本，用循环替换递归，效率变差
+
+
+8. curve_fit.py: 最小二乘法曲线拟合

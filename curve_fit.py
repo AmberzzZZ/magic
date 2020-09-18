@@ -47,5 +47,36 @@ if __name__ == '__main__':
     cv2.imshow("tmp", canvas)
     cv2.waitKey(0)
 
+    # 法
+    for i in range(0, 512, 20):
+        curve_y = 0
+        for j in range(k+1):
+            curve_y += int(mat_a[j]*math.pow(i,j))
+        tx = mat_a[2]*2*i + mat_a[1]
+        ty = -1
+
+        new_x = int(i + 50*tx)
+        new_y = int(curve_y + 50*ty)
+
+        cv2.line(canvas, (curve_y, i), (new_y, new_x), 255, 1)
+    cv2.imshow("tmp", canvas)
+    cv2.waitKey(0)
+
+    # 切
+    for i in range(0, 512, 20):
+        curve_y = 0
+        for j in range(k+1):
+            curve_y += int(mat_a[j]*math.pow(i,j))
+        ty = mat_a[2]*2*i + mat_a[1]
+        tx = 1
+
+        new_x = int(i + 50*tx)
+        new_y = int(curve_y + 50*ty)
+
+        cv2.line(canvas, (curve_y, i), (new_y, new_x), 255, 1)
+    cv2.imshow("tmp", canvas)
+    cv2.waitKey(0)
+
+
 
 
