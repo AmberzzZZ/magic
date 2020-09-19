@@ -31,7 +31,7 @@ if __name__ == '__main__':
         cv2.circle(canvas, tuple(coord_xy), 5, 255, 2)
 
     # fit
-    k = 2
+    k = 3
     mat_a = curve_fit(coords, k)
     print(mat_a)
 
@@ -52,8 +52,13 @@ if __name__ == '__main__':
         curve_y = 0
         for j in range(k+1):
             curve_y += int(mat_a[j]*math.pow(i,j))
-        tx = mat_a[2]*2*i + mat_a[1]
+        tx = 0
+        for j in range(1, k+1):
+            tx += mat_a[j] * j * math.pow(i, j-1)
         ty = -1
+
+        theta = math.atan(-tx)
+        print(theta)
 
         new_x = int(i + 50*tx)
         new_y = int(curve_y + 50*ty)
@@ -67,7 +72,10 @@ if __name__ == '__main__':
         curve_y = 0
         for j in range(k+1):
             curve_y += int(mat_a[j]*math.pow(i,j))
-        ty = mat_a[2]*2*i + mat_a[1]
+
+        ty = 0
+        for j in range(1, k+1):
+            ty += mat_a[j] * j * math.pow(i, j-1)
         tx = 1
 
         new_x = int(i + 50*tx)
